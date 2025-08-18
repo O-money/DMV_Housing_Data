@@ -1,10 +1,16 @@
+name: Import Data and Update
+
 on:
   push:
-    branches: main
+    branches: [main]
+
 jobs:
   import-data:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
 
@@ -12,10 +18,9 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages: |
-            any::tidyverse 
+            any::tidyverse
             any::ggplot2
             any::dplyr
-            any::tidyverse
             any::data.table
             any::MASS
             any::wooldridge
@@ -35,9 +40,6 @@ jobs:
             any::googleway
             any::tidygeocoder
 
-      - name: Check out repository
-        uses: actions/checkout@v3
-
       - name: Import data
         run: Rscript -e 'source("Predict DMV Data 2 Aug.R")'
 
@@ -47,4 +49,4 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add survey_data.rds
           git commit -m 'Data updated' || echo "No changes to commit"
-          git push origin || echo "No changes to commit"
+          git push origin main || echo "No changes to commit"
