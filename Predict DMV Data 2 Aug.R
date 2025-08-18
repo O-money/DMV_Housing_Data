@@ -236,8 +236,7 @@ Stafford_CY<-lapply(1:8,Staf_scrape_zillow_page)
 zillow_df <- bind_rows(WASH_DC_data,ALX_zillow_data,ALing_zillow_data
                        ,Mont_Cy_data,PG_CY_data,FAX_CY_data,Pr_Will_CY_data,
                        Loud_CY_data,FredMD_CY_data,Charles_CY,Stafford_CY)
-
-
+  
 zillow_df1 <- zillow_df[!duplicated(zillow_df$Address), ]
 
 zillow_df_New <- zillow_df1 %>%
@@ -559,38 +558,8 @@ zillow_df_New$A_Lot_Asian<-ifelse(zillow_df_New$AsianPercent>=.35,1,0)
                  ,zillow_Out_DC)
   summary(Out_DC_Regress)
   bptest(Out_DC_Regress)
-  
-  
-  
-  median(zillow_df_New$Num_Sqfts[zillow_df_New$City=="Alexandria" & zillow_df_New$Is_Townhouse],na.rm = TRUE)
-  
-  
-  names(zillow_df_New)
-  
- 
-  ggplot(data = zillow_df_New, mapping = aes(x = White , y = log(Num_price))) +
-    geom_point(alpha = 0.6, color = "darkblue") + # Add a scatter plot layer
-    labs(
-      title = "",x = "Miles to Downtown DC",y = "Squ") +
-    theme_minimal() + # Use a minimal theme for a clean look
-    theme(plot.title = element_text(hjust = 0.5, face = "bold"))
-  
-  
-  
-  
-  
 } 
 
 DMV_Housing_Data<-zillow_df_New
 
-write_xlsx(DMV_Housing_Data,path = "repo:O-money/DMV_Housing_Data/zilliow_Webscrape.xlsx")
-
-
-
-
-#rm(zillow_df_New,zillow_df,demo_data_dist,demo_data_wide)
-#rm(results_list,results_list_Dist,results_listDist)
-
-
-  
-  
+write_xlsx(DMV_Housing_Data, path = "zilliow_Webscrape.xlsx")
