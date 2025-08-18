@@ -1,6 +1,6 @@
 on:
-  schedule:
-    - cron: '40 9 * * 1'
+  push:
+    branches: main
 jobs:
   import-data:
     runs-on: ubuntu-latest
